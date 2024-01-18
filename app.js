@@ -23,7 +23,6 @@
 
 // console.log('Планировщик задач запущен');
 
-
 //v2
 // const express = require('express')
 // const app = express()
@@ -37,26 +36,25 @@
 
 // app.listen(process.env.PORT || 3000)
 
+const express = require('express')
+const bodyParser = require('body-parser')
 
-
-const express = require('express');
-const bodyParser = require('body-parser');
-
-const app = express();
-const port = process.env.PORT || 3000;
+const app = express()
+const port = process.env.PORT || 3000
 
 // Позволяет приложению парсить тело запроса в формате JSON
-app.use(bodyParser.json());
+app.use(bodyParser.json())
 
 // Обработчик для вебхука
 app.post('/webhook', (req, res) => {
-  console.log('Получен вебхук:', req.body);
-  // Добавьте код обработки вебхука здесь
+    console.log('Проверка')
+    console.log('Получен вебхук:', req.body)
+    // Добавьте код обработки вебхука здесь
 
-  res.status(200).send('Вебхук успешно обработан');
-});
+    res.status(200).send('Вебхук успешно обработан')
+})
 
 // Запуск сервера
 app.listen(port, () => {
-  console.log(`Сервер запущен на порту ${port}`);
-});
+    console.log(`Сервер запущен на порту ${port}`)
+})
