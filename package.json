@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "echo 'Раз, два, три'"
+    "test": "echo 'Раз, два, три'",
+    "testSecond": "echo 'Второй тест'"
   },
   "keywords": [],
   "author": "",
