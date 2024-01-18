@@ -1,3 +1,4 @@
+//v1
 // // Установите необходимые зависимости перед использованием:
 // // npm install node-cron axios
 
@@ -22,14 +23,40 @@
 
 // console.log('Планировщик задач запущен');
 
-const express = require('express')
-const app = express()
 
-app.get('/', function(req, res){
+//v2
+// const express = require('express')
+// const app = express()
 
-    res.set('Content-Type', 'text/html; charset=utf-8')
-    res.send("<h1>Hello</h1>")
-    
-})
+// app.get('/', function(req, res){
 
-app.listen(process.env.PORT || 3000)
+//     res.set('Content-Type', 'text/html; charset=utf-8')
+//     res.send("<h1>Hello</h1>")
+
+// })
+
+// app.listen(process.env.PORT || 3000)
+
+
+
+const express = require('express');
+const bodyParser = require('body-parser');
+
+const app = express();
+const port = process.env.PORT || 3000;
+
+// Позволяет приложению парсить тело запроса в формате JSON
+app.use(bodyParser.json());
+
+// Обработчик для вебхука
+app.post('/webhook', (req, res) => {
+  console.log('Получен вебхук:', req.body);
+  // Добавьте код обработки вебхука здесь
+
+  res.status(200).send('Вебхук успешно обработан');
+});
+
+// Запуск сервера
+app.listen(port, () => {
+  console.log(`Сервер запущен на порту ${port}`);
+});
