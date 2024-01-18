@@ -5,11 +5,11 @@ const cron = require('node-cron');
 const axios = require('axios');
 
 // Замените URL и параметры на свои
-const chatUrl = 'https://example.com/chat';
+const chatUrl = 'https://interface.gadir-jeweler.kz/';
 const chatMessage = 'Проверка';
 
-// Запускаем cron job каждые 10 минут
-cron.schedule('*/10 * * * *', () => {
+// Запускаем cron job каждые 1 минут
+cron.schedule('*/1 * * * *', () => {
   // Отправляем сообщение в чат
   axios.post(chatUrl, { message: chatMessage })
     .then(response => {
