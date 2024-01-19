@@ -6,6 +6,8 @@ const bodyParser = require('body-parser')
 const app = express()
 const port = process.env.PORT || 3000
 
+console.log('123')
+
 app.get('/', (req, res) => {
     res.send('<h1>Привет, это главная страница!</h1>')
 })
