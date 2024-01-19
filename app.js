@@ -1,34 +1,22 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+const { send } = require('micro');
+const { json, createError } = require('micro');
 
-const app = express();
-const port = process.env.PORT || 3000;
+const server = async (req, res) => {
+    if (req.method === 'POST' && req.url === '/webhook') {
+        try {
+            const body = await json(req);
+            console.log('Получен вебхук:', body);
+            send(res, 200, 'Вебхук успешно обработан');
+        } catch (error) {
+            console.error('Ошибка при обработке вебхука:', error);
+            send(res, 500, 'Ошибка при обработке вебхука');
+        }
+    } else {
+        send(res, 404, 'Not Found');
+    }
+};
 
-console.log('Check Node.js');
-console.log('123');
-
-app.get('/', (req, res) => {
-    res.send('<h1>Привет, это главная страница!</h1>');
-});
-
-app.use(bodyParser.json());
-
-app.post('/webhook', (req, res) => {
-    console.log('Проверка');
-    console.log('Получен вебхук:', req.body);
-    res.status(200).send('Вебхук успешно обработан');
-});
-
-// Завершение работы сервера после обработки запросов
-const server = app.listen(port, () => {
-    console.log(`Сервер запущен на порту ${port}`);
-});
-
-// Обработчик события завершения процесса
-process.on('SIGTERM', () => {
-    console.log('Принят сигнал SIGTERM. Завершение работы сервера.');
-    server.close(() => {
-        console.log('Сервер остановлен.');
-        process.exit(0);
-    });
+const { PORT = 3000 } = process.env;
+server.listen(PORT, () => {
+    console.log(`Сервер запущен на порту ${PORT}`);
 });
