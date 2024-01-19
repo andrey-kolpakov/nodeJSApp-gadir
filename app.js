@@ -19,9 +19,16 @@ app.post('/webhook', (req, res) => {
     res.status(200).send('Вебхук успешно обработан');
 });
 
-const startServer = async () => {
-    await app.listen(port);
+// Завершение работы сервера после обработки запросов
+const server = app.listen(port, () => {
     console.log(`Сервер запущен на порту ${port}`);
-};
+});
 
-startServer();
+// Обработчик события завершения процесса
+process.on('SIGTERM', () => {
+    console.log('Принят сигнал SIGTERM. Завершение работы сервера.');
+    server.close(() => {
+        console.log('Сервер остановлен.');
+        process.exit(0);
+    });
+});
