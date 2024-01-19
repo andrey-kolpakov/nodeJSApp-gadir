@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node app.js",
     "test": "echo 'Раз, два, три'",
-    "testSecond": "echo 'Второй тест'"
+    "testSecond": "echo 'Второй тест'",
+    "check": "node script-new.js"
   },
   "keywords": [],
   "author": "",
