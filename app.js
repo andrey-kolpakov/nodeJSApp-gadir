@@ -1,22 +1,12 @@
-const { send } = require('micro');
-const { json, createError } = require('micro');
+const http = require('http');
 
-const server = async (req, res) => {
-    if (req.method === 'POST' && req.url === '/webhook') {
-        try {
-            const body = await json(req);
-            console.log('Получен вебхук:', body);
-            send(res, 200, 'Вебхук успешно обработан');
-        } catch (error) {
-            console.error('Ошибка при обработке вебхука:', error);
-            send(res, 500, 'Ошибка при обработке вебхука');
-        }
-    } else {
-        send(res, 404, 'Not Found');
-    }
-};
+const server = http.createServer((req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Hello, World!\n');
+});
 
-const { PORT = 3000 } = process.env;
+const PORT = process.env.PORT || 3000;
+
 server.listen(PORT, () => {
-    console.log(`Сервер запущен на порту ${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
