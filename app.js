@@ -1,30 +1,27 @@
-console.log('Check Node.js')
+const express = require('express');
+const bodyParser = require('body-parser');
 
-const express = require('express')
-const bodyParser = require('body-parser')
+const app = express();
+const port = process.env.PORT || 3000;
 
-const app = express()
-const port = process.env.PORT || 3000
-
-console.log('123')
+console.log('Check Node.js');
+console.log('123');
 
 app.get('/', (req, res) => {
-    res.send('<h1>Привет, это главная страница!</h1>')
-})
+    res.send('<h1>Привет, это главная страница!</h1>');
+});
 
-// Позволяет приложению парсить тело запроса в формате JSON
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
-// Обработчик для вебхука
 app.post('/webhook', (req, res) => {
-    console.log('Проверка')
-    console.log('Получен вебхук:', req.body)
-    // Добавьте код обработки вебхука здесь
+    console.log('Проверка');
+    console.log('Получен вебхук:', req.body);
+    res.status(200).send('Вебхук успешно обработан');
+});
 
-    res.status(200).send('Вебхук успешно обработан')
-})
+const startServer = async () => {
+    await app.listen(port);
+    console.log(`Сервер запущен на порту ${port}`);
+};
 
-// Запуск сервера
-app.listen(port, () => {
-    console.log(`Сервер запущен на порту ${port}`)
-})
+startServer();
