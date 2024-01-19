@@ -6,6 +6,10 @@ const bodyParser = require('body-parser')
 const app = express()
 const port = process.env.PORT || 3000
 
+app.get('/', (req, res) => {
+    res.send('<h1>Привет, это главная страница!</h1>')
+})
+
 // Позволяет приложению парсить тело запроса в формате JSON
 app.use(bodyParser.json())
 
