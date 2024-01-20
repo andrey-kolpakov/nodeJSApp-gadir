@@ -49,6 +49,8 @@ const handler = async (event, context) => {
 
         
     async function run() {
+        console.log('run run run')
+
         const client = new Client({
             // логин пользователя в портале, где адрес портала domain.amocrm.ru
             domain: 'liyavais1408.amocrm.ru', // может быть указан полный домен вида domain.amocrm.ru, domain.amocrm.com
