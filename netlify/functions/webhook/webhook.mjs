@@ -85,27 +85,21 @@ const handler = async (event, context) => {
         const botToken = '6391665621:AAFI8eS-466kwW1142OdQKthJ-_hLHOLyxM'
         const botUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatID}&parse_mode=html&text=${textMessage}`
 
-        // await Promise.all(
-        //     axios.post(botUrl, newObj.name).then((response) => {
-        //         console.log('123123')
-        //         console.log(response)
-        //     })
-        // )
-
         await axios
             .post(webhookUrl, newObj)
             .then((response) => {
                 console.log('Успешно отправлено после обработки:', response.data)
             })
-            .then(() => {
-                axios.post(botUrl, newObj.name).then((response) => {
-                    console.log('123123')
-                    console.log(response)
-                })
-            })
             .catch((error) => {
                 console.error('Ошибка отправки вебхука:', error.message)
             })
+
+        await Promise.all(
+            axios.post(botUrl, newObj.name).then((response) => {
+                console.log('123123')
+                console.log(response)
+            })
+        )
 
         return {
             statusCode: 200,
