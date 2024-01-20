@@ -80,8 +80,8 @@ const handler = async (event, context) => {
         // Получаем массив ключей объекта lead
         const leadKeys = Object.keys(lead)
         // console.log(leadKeys)
-        console.log(lead['name'])
-        console.log(lead['embeddedContacts'])
+        console.log('name',lead['name'])
+        console.log('Contacts', lead['embeddedContacts'])
 
         // Выводим массив ключей в консоль
         // for (const key of leadKeys) {
