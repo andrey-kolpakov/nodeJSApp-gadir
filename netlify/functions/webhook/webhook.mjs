@@ -84,7 +84,7 @@ const handler = async (event, context) => {
         
 
         await axios
-            .post(webhookUrl, dataToWrite)
+            .post(webhookUrl, newObj)
             .then((response) => {
                 console.log('Успешно отправлено после обработки:', response.data)
             })
