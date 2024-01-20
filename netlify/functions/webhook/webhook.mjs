@@ -79,23 +79,14 @@ const handler = async (event, context) => {
         const textMessage = `Уважаемый ${newObj.name}, привет и как дела?`
         const textLink = `https://wa.me/${newObj.phone}?text=${encodeURIComponent(textMessage)}`
 
-        const textMessageForGadir = `Привет. Перейди по ссылке ${textLink}`
+        const textMessageForGadir = `Этому человеку нужно отправить сообщение <b>${newObj.name}</b>%0A <b>Номер: </b> ${newObj.phone}%0A Перейди по ссылке, чтобы отправить сообщение:<a href="${textLink}">Ссылка</a>`
 
         newObj.textLink = textLink
 
-        //6391665621:AAFI8eS-466kwW1142OdQKthJ-_hLHOLyxM
-
         const chatID = '-1001992000184'
         const botToken = '6391665621:AAFI8eS-466kwW1142OdQKthJ-_hLHOLyxM'
-        // const botUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatID}&parse_mode=html&text=${textMessageForGadir}`
-
-        // await axios.post(botUrl, '123').then((response) => {
-        //     console.log('123123')
-        //     console.log(response.data)
-        // })
-        console.log(TelegramBot)
         const bot = new TelegramBot(botToken, { polling: false })
-        
+
         console.log(bot)
         bot.sendMessage(chatID, textMessageForGadir)
             .then((sentMessage) => {
