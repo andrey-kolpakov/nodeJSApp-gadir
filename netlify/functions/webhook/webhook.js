@@ -21,7 +21,7 @@ exports.handler = async (event, context) => {
         // Вывод объекта в консоль
         console.log(webhookObject)
 
-        const webhookUrl = "https://webhook.site/6a5cdb77-6072-430d-9ad6-2e7d57f4993f";
+        const webhookUrl = "https://welcome-shark-wondrous.ngrok-free.app/webhook";
 
         axios
             .post(webhookUrl, webhookObject)
