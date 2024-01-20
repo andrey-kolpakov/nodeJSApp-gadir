@@ -22,23 +22,13 @@ const handler = async (event, context) => {
         })
 
         // Вывод объекта в консоль
-        console.log(webhookObject)
+        // console.log(webhookObject)
 
         const webhookUrl = 'https://welcome-shark-wondrous.ngrok-free.app/webhook'
 
         webhookObject.mark = 'marked'
 
         await run(webhookObject)
-
-        // Ожидание завершения запроса
-        await axios
-            .post(webhookUrl, webhookObject)
-            .then((response) => {
-                console.log('Успешно отправлено:', response.data)
-            })
-            .catch((error) => {
-                console.error('Ошибка отправки вебхука:', error.message)
-            })
 
         return {
             statusCode: 200,
@@ -97,20 +87,6 @@ const handler = async (event, context) => {
         }
     }
 
-    function cleanCircularReferences(obj) {
-        const seen = new WeakSet()
-        return JSON.parse(
-            JSON.stringify(obj, (key, value) => {
-                if (typeof value === 'object' && value !== null) {
-                    if (seen.has(value)) {
-                        return
-                    }
-                    seen.add(value)
-                }
-                return value
-            })
-        )
-    }
 }
 
 export { handler }
