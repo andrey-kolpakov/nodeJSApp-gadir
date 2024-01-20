@@ -86,6 +86,7 @@ const handler = async (event, context) => {
         const botUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatID}&parse_mode=html&text=${textMessage}`
     
         await axios.post(botUrl, newObj.name).then((response) => {
+            console.log('123123')
             console.log(response)
         })
 
