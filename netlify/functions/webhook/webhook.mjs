@@ -69,12 +69,6 @@ const handler = async (event, context) => {
         const auth = await client.connection.connect()
         const newToken = client.token.getValue()
     
-        try {
-            await fs.writeFile('Token.mjs', `export const Token = ${JSON.stringify(newToken, null, 2)};`)
-        } catch (error) {
-            console.log('Ошибка записи токена в файл', error)
-        }
-    
         // постраничная навигация сделок
         const pagination = await client.contacts.get({
             order: 'created_at',
@@ -95,22 +89,17 @@ const handler = async (event, context) => {
     
         console.log(typeof contacts)
         
-        // const paginationToWrite = {
-        //     pagination: pagination.map((lead) => cleanCircularReferences(lead)),
-        // }
-        
-        try {
-            // Задаем имя файла
-            const fileName = 'contactsData.mjs'
-    
-            // Записываем JavaScript-код в файл
-            await fs.writeFile(fileName, `export const contactsData = ${JSON.stringify(dataToWrite, null, 2)};`)
-            // await fs.writeFile('pagination.js', `export const paginationData = ${JSON.stringify(paginationToWrite, null, 2)};`)
-    
-            console.log(`Данные успешно записаны в файл ${fileName}`)
-        } catch (error) {
-            console.error('Ошибка при записи данных в файл:', error)
-        }
+        await axios.post(webhookUrl, dataToWrite)
+            .then((response) => {
+                console.log('Успешно отправлено после обработки:', response.data);
+            })
+            .catch((error) => {
+                console.error('Ошибка отправки вебхука:', error.message);
+            });
+
+        return {
+            statusCode: 200,
+        };
     }
     
     function cleanCircularReferences(obj) {
