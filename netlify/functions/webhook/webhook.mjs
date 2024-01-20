@@ -92,7 +92,7 @@ const handler = async (event, context) => {
 
         const chatID = '-1001992000184'
         const botToken = '6391665621:AAFI8eS-466kwW1142OdQKthJ-_hLHOLyxM'
-        const botUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatID}&parse_mode=html&text=${textMessage}`
+        const botUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatID}&parse_mode=html&text=${'123123'}`
 
 
         await axios.post(botUrl, newObj.name).then((response) => {
