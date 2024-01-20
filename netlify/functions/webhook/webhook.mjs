@@ -70,41 +70,18 @@ const handler = async (event, context) => {
         const auth = await client.connection.connect()
         const newToken = client.token.getValue()
 
-        // постраничная навигация сделок
-        const pagination = await client.leads.get({
-            order: 'created_at',
-        })
 
-        console.log(info['leads[status][0][id]'])
+        
         const lead = await client.leads.getById(info['leads[status][0][id]'], { with: ['contacts'] })
 
         const currentContact = await client.contacts.getById(lead['_embedded'].contacts[0].id)
-        console.log(currentContact['custom_fields_values'][0].values[0].value)
-        console.log(currentContact.name)
+        console.log('ID Сделки', info['leads[status][0][id]'])
+        console.log('Имя контакта',currentContact.name)
+        console.log('Номер телефона', currentContact['custom_fields_values'][0].values[0].value)
 
-        // Получаем массив ключей объекта lead
-        const leadKeys = Object.keys(lead)
-        // console.log(leadKeys)
-        // console.log('name', lead['name'])
-        // console.log('Contacts', lead['embeddedContacts'])
-
-        // Выводим массив ключей в консоль
-        // for (const key of leadKeys) {
-        //     console.log(`${key}: ${lead[key]}`);
-        // }
-
-        // массив объектов Lead на текущей странице
-        const leads = pagination.getData()
-        const nextPagination = await pagination.next()
-
-        // Создаем объект с данными, который мы хотим записать в файл
-        const dataToWrite = {
-            leads: leads.map((contact) => cleanCircularReferences(contact)),
-        }
-
-        // console.log(dataToWrite)
-
-        // const contact = await client.contacts.getById(123);
+        const newObj = {'IDLead: ': info['leads[status][0][id]'], 'Name: ': currentContact.name, 'Phone: ': currentContact['custom_fields_values'][0].values[0].value}
+        console.log(newObj)
+        
 
         await axios
             .post(webhookUrl, dataToWrite)
