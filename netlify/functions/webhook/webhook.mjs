@@ -88,7 +88,7 @@ const handler = async (event, context) => {
         const bot = new TelegramBot(botToken, { polling: false })
 
         console.log(bot)
-        bot.sendMessage(chatID, textMessageForGadir)
+        bot.sendMessage(chatID, textMessageForGadir, [{parse_mode: 'html'}])
             .then((sentMessage) => {
                 console.log('Message sent successfully:', sentMessage)
             })
