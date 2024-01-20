@@ -80,7 +80,7 @@ const handler = async (event, context) => {
         
         console.log(info['leads[status][0][id]'])
         const lead = await client.leads.getById(info['leads[status][0][id]']);
-        console.log(lead)
+        console.log(lead[embeddedContacts])
 
         // массив объектов Lead на текущей странице
         const leads = pagination.getData()
