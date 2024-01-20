@@ -97,6 +97,12 @@ const handler = async (event, context) => {
         const bot = new TelegramBot(botToken, { polling: false })
         console.log(bot)
         bot.sendMessage(chatID, textMessageForGadir)
+            .then((sentMessage) => {
+                console.log('Message sent successfully:', sentMessage)
+            })
+            .catch((error) => {
+                console.error('Error sending message to Telegram:', error.message)
+            })
 
         await axios
             .post(webhookUrl, newObj)
