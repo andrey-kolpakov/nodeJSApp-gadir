@@ -77,7 +77,7 @@ const handler = async (event, context) => {
         const textMessage = `Уважаемый ${newObj.name}, привет и как дела?`
         const textLink = `https://wa.me/${newObj.phone}?text=${encodeURIComponent(textMessage)}`
 
-        const textMessageForGadir = `Привет, нажми сюда`
+        const textMessageForGadir = 123123
 
         newObj.textLink = textLink
 
@@ -100,8 +100,6 @@ const handler = async (event, context) => {
             .catch((error) => {
                 console.error('Ошибка отправки вебхука:', error.message)
             })
-
-        
 
         return {
             statusCode: 200,
