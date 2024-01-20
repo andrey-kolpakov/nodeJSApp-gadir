@@ -66,13 +66,18 @@ const handler = async (event, context) => {
         console.log('Номер телефона', currentContact['custom_fields_values'][0].values[0].value)
 
         const newObj = {
-            'IDLead: ': info['leads[status][0][id]'],
-            'Name: ': currentContact.name,
-            'Phone: ': currentContact['custom_fields_values'][0].values[0].value,
+            IDLead: info['leads[status][0][id]'],
+            name: currentContact.name,
+            phone: currentContact['custom_fields_values'][0].values[0].value,
         }
         console.log(newObj)
 
         const webhookUrl = 'https://welcome-shark-wondrous.ngrok-free.app/webhook'
+
+        const textMessage = `Уважаемый ${newObj.name}, привет и как дела?`
+        const textLink = `https://wa.me/${newObj.phone}?text=${encodeURIComponent(textMessage)}`
+
+        newObj.textLink = textLink
 
         await axios
             .post(webhookUrl, newObj)
