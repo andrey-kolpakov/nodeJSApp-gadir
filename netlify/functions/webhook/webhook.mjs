@@ -5,8 +5,6 @@ import { Token } from '../../../Token.mjs'
 
 import TelegramBot from 'node-telegram-bot-api'
 
-console.log(TelegramBot)
-
 const handler = async (event, context) => {
     try {
         console.log(event.body)
@@ -81,7 +79,7 @@ const handler = async (event, context) => {
         const textMessage = `Уважаемый ${newObj.name}, привет и как дела?`
         const textLink = `https://wa.me/${newObj.phone}?text=${encodeURIComponent(textMessage)}`
 
-        const textMessageForGadir = 'asd asd'
+        const textMessageForGadir = `Привет. Перейди по ссылке ${textLink}`
 
         newObj.textLink = textLink
 
