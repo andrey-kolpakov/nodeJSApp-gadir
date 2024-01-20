@@ -80,11 +80,9 @@ const handler = async (event, context) => {
     
         // массив объектов Lead на текущей странице
         const contacts = pagination.getData()
-    
-        // console.log(pagination);
-    
+       
         const nextPagination = await pagination.next();
-        console.log(nextPagination)
+        console.log('123123', nextPagination)
     
         // Создаем объект с данными, который мы хотим записать в файл
         const dataToWrite = {
