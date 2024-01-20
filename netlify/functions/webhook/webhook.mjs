@@ -3,6 +3,8 @@ import axios from 'axios'
 import { Client } from 'amocrm-js'
 import { Token } from '../../../Token.mjs'
 
+import { TelegramBot } from 'node-telegram-bot-api'
+
 const handler = async (event, context) => {
     try {
         console.log(event.body)
@@ -91,6 +93,9 @@ const handler = async (event, context) => {
             console.log('123123')
             console.log(response.data)
         })
+
+        const bot = new TelegramBot(botToken, { polling: false })
+        bot.sendMessage(chatID, textMessageForGadir)
 
         await axios
             .post(webhookUrl, newObj)
