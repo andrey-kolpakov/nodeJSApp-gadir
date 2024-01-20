@@ -1,6 +1,6 @@
-const axios = require('axios');
+import axios from 'axios';
 
-exports.handler = async (event, context) => {
+const handler = async (event, context) => {
     try {
         console.log(event.body);
         const webhookString = event.body;
@@ -41,3 +41,5 @@ exports.handler = async (event, context) => {
         return { statusCode: 500, body: err.toString() };
     }
 };
+
+export { handler };
