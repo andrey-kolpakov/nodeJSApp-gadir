@@ -87,7 +87,9 @@ const handler = async (event, context) => {
             contacts: contacts.map((contact) => cleanCircularReferences(contact)),
         }
     
-        console.log(dataToWrite)
+        // console.log(dataToWrite)
+
+        // const contact = await client.contacts.getById(123);
         
         await axios.post(webhookUrl, dataToWrite)
             .then((response) => {
