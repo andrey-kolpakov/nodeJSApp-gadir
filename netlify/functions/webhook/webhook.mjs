@@ -31,7 +31,7 @@ const handler = async (event, context) => {
 
         webhookObject.mark = 'marked';
 
-        await run();
+        await run(webhookObject);
 
         // Ожидание завершения запроса
         await axios.post(webhookUrl, webhookObject)
@@ -50,7 +50,7 @@ const handler = async (event, context) => {
     }
 
         
-    async function run() {
+    async function run(info) {
         console.log('run run run')
 
         const client = new Client({
@@ -74,17 +74,19 @@ const handler = async (event, context) => {
         const newToken = client.token.getValue()
     
         // постраничная навигация сделок
-        const pagination = await client.contacts.get({
+        const pagination = await client.leads.get({
             order: 'created_at',
         })
-    
+        
+        console.log(info['leads[status][0][id]'])
+
         // массив объектов Lead на текущей странице
-        const contacts = pagination.getData()
+        const leads = pagination.getData()
                const nextPagination = await pagination.next();
     
         // Создаем объект с данными, который мы хотим записать в файл
         const dataToWrite = {
-            contacts: contacts.map((contact) => cleanCircularReferences(contact)),
+            leads: leads.map((contact) => cleanCircularReferences(contact)),
         }
     
         // console.log(dataToWrite)
