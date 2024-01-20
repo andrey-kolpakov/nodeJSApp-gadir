@@ -79,12 +79,12 @@ const handler = async (event, context) => {
         const lead = await client.leads.getById(info['leads[status][0][id]'])
         // Получаем массив ключей объекта lead
         const leadKeys = Object.keys(lead)
-        console.log(leadKeys)
+        console.log(leadKeys['name'])
 
         // Выводим массив ключей в консоль
-        for (const key of leadKeys) {
-            console.log(`${key}: ${lead[key]}`);
-        }
+        // for (const key of leadKeys) {
+        //     console.log(`${key}: ${lead[key]}`);
+        // }
 
         // массив объектов Lead на текущей странице
         const leads = pagination.getData()
