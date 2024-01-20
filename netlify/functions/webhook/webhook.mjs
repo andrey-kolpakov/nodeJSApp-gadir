@@ -95,6 +95,7 @@ const handler = async (event, context) => {
         // })
 
         const bot = new TelegramBot(botToken, { polling: false })
+        console.log(bot)
         bot.sendMessage(chatID, textMessageForGadir)
 
         await axios
