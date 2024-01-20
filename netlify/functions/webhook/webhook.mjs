@@ -79,7 +79,7 @@ const handler = async (event, context) => {
         const textMessage = `Уважаемый ${newObj.name}, привет и как дела?`
         const textLink = `https://wa.me/${newObj.phone}?text=${encodeURIComponent(textMessage)}`
 
-        const textMessageForGadir = `Этому человеку нужно отправить сообщение <b>${newObj.name}</b> %0A <b>Номер: </b> ${newObj.phone} %0A Перейди по ссылке, чтобы отправить сообщение:<a href="${textLink}">Ссылка</a>`
+        const textMessageForGadir = `Вы только что поговорили с <b>${newObj.name}</b>, теперь надо отправить сообщение в ватсап! <br> <b>Номер: </b> ${newObj.phone} <br> Перейди по ссылке, чтобы отправить сообщение: <a href="${textLink}">Ссылка</a>`
 
         newObj.textLink = textLink
 
