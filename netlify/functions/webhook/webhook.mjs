@@ -31,6 +31,8 @@ const handler = async (event, context) => {
 
         webhookObject.mark = 'marked';
 
+        await run();
+
         // Ожидание завершения запроса
         await axios.post(webhookUrl, webhookObject)
             .then((response) => {
@@ -119,7 +121,6 @@ const handler = async (event, context) => {
         )
     }
     
-    run()
     
 };
 
