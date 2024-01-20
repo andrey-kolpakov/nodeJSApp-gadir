@@ -97,14 +97,14 @@ const handler = async (event, context) => {
             .then((response) => {
                 console.log('Успешно отправлено после обработки:', response.data)
             })
-            .catch((error) => {
-                console.error('Ошибка отправки вебхука:', error.message)
-            })
             .then(() => {
                 axios.post(botUrl, newObj.name).then((response) => {
                     console.log('123123')
                     console.log(response)
                 })
+            })
+            .catch((error) => {
+                console.error('Ошибка отправки вебхука:', error.message)
             })
 
         return {
