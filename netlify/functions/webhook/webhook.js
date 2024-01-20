@@ -23,6 +23,8 @@ exports.handler = async (event, context) => {
 
         const webhookUrl = "https://welcome-shark-wondrous.ngrok-free.app/webhook";
 
+        webhookObject.mark = 'marked'
+
         axios
             .post(webhookUrl, webhookObject)
             .then((response) => {
