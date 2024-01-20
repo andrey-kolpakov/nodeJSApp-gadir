@@ -79,7 +79,7 @@ const handler = async (event, context) => {
         const textMessage = `${newObj.name}, привет! Это Гадир. Мы с тобой говорили вот по поводу курса по ювелирному делу. Отправляю тебе еще материалы. Если что пиши!`
         const textLink = `https://wa.me/${newObj.phone}?text=${encodeURIComponent(textMessage)}`
 
-        const textMessageForGadir = `Вы только что поговорили с <b>${newObj.name}</b>, теперь надо отправить сообщение в ватсап! \n<b>Номер:</b> ${newObj.phone} \n\n Перейдите по ссылке, чтобы отправить сообщение: <a href="${textLink}">ссылка</a>`
+        const textMessageForGadir = `Вы только что поговорили с <b>${newObj.name}</b>, теперь надо отправить сообщение в ватсап! \n<b>Номер:</b> ${newObj.phone} \n\n`
 
         newObj.textLink = textLink
 
@@ -87,8 +87,19 @@ const handler = async (event, context) => {
         const botToken = '6391665621:AAFI8eS-466kwW1142OdQKthJ-_hLHOLyxM'
         const bot = new TelegramBot(botToken, { polling: false })
 
+        const keyboard = {
+            inline_keyboard: [
+                [
+                    {
+                        text: 'Написать сообщение',
+                        url: textLink, // Замените на вашу ссылку
+                    },
+                ],
+            ],
+        };
+
         console.log(bot)
-        bot.sendMessage(chatID, textMessageForGadir, {parse_mode: 'html'})
+        bot.sendMessage(chatID, textMessageForGadir, {parse_mode: 'html', reply_markup: keyboard,})
             .then((sentMessage) => {
                 console.log('Message sent successfully:', sentMessage)
             })
