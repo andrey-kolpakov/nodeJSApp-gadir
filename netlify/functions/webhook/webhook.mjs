@@ -79,6 +79,16 @@ const handler = async (event, context) => {
 
         newObj.textLink = textLink
 
+        //6391665621:AAFI8eS-466kwW1142OdQKthJ-_hLHOLyxM
+
+        const chatID = '-1001992000184'
+        const botToken = '6391665621:AAFI8eS-466kwW1142OdQKthJ-_hLHOLyxM'
+        const botUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatID}&parse_mode=html&text=${textMessage}`
+    
+        await axios.post(botUrl, '').then((response) => {
+            console.log('Отправлено')
+        })
+
         await axios
             .post(webhookUrl, newObj)
             .then((response) => {
