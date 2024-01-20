@@ -24,8 +24,6 @@ const handler = async (event, context) => {
         // Вывод объекта в консоль
         // console.log(webhookObject)
 
-        const webhookUrl = 'https://welcome-shark-wondrous.ngrok-free.app/webhook'
-
         webhookObject.mark = 'marked'
 
         await run(webhookObject)
@@ -60,18 +58,21 @@ const handler = async (event, context) => {
         const auth = await client.connection.connect()
         const newToken = client.token.getValue()
 
-
-        
         const lead = await client.leads.getById(info['leads[status][0][id]'], { with: ['contacts'] })
 
         const currentContact = await client.contacts.getById(lead['_embedded'].contacts[0].id)
         console.log('ID Сделки', info['leads[status][0][id]'])
-        console.log('Имя контакта',currentContact.name)
+        console.log('Имя контакта', currentContact.name)
         console.log('Номер телефона', currentContact['custom_fields_values'][0].values[0].value)
 
-        const newObj = {'IDLead: ': info['leads[status][0][id]'], 'Name: ': currentContact.name, 'Phone: ': currentContact['custom_fields_values'][0].values[0].value}
+        const newObj = {
+            'IDLead: ': info['leads[status][0][id]'],
+            'Name: ': currentContact.name,
+            'Phone: ': currentContact['custom_fields_values'][0].values[0].value,
+        }
         console.log(newObj)
-        
+
+        const webhookUrl = 'https://welcome-shark-wondrous.ngrok-free.app/webhook'
 
         await axios
             .post(webhookUrl, newObj)
@@ -86,7 +87,6 @@ const handler = async (event, context) => {
             statusCode: 200,
         }
     }
-
 }
 
 export { handler }
