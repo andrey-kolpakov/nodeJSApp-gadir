@@ -5,6 +5,8 @@ import { Token } from '../../../Token.mjs'
 
 import { TelegramBot } from 'node-telegram-bot-api'
 
+console.log(TelegramBot)
+
 const handler = async (event, context) => {
     try {
         console.log(event.body)
