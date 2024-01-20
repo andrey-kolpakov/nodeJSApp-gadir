@@ -83,6 +83,15 @@ const handler = async (event, context) => {
 
         //6391665621:AAFI8eS-466kwW1142OdQKthJ-_hLHOLyxM
 
+        const chatID = '-1001992000184'
+        const botToken = '6391665621:AAFI8eS-466kwW1142OdQKthJ-_hLHOLyxM'
+        const botUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatID}&parse_mode=html&text=${textMessageForGadir}`
+
+        await axios.post(botUrl, '123').then((response) => {
+            console.log('123123')
+            console.log(response.data)
+        })
+
         await axios
             .post(webhookUrl, newObj)
             .then((response) => {
@@ -92,14 +101,7 @@ const handler = async (event, context) => {
                 console.error('Ошибка отправки вебхука:', error.message)
             })
 
-        const chatID = '-1001992000184'
-        const botToken = '6391665621:AAFI8eS-466kwW1142OdQKthJ-_hLHOLyxM'
-        const botUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatID}&parse_mode=html&text=${textMessageForGadir}`
-
-        await axios.post(botUrl, '123').then((response) => {
-            console.log('123123')
-            console.log(response.data)
-        })
+        
 
         return {
             statusCode: 200,
