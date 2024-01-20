@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Client } from 'amocrm-js'
 import { Token } from '../../../Token.mjs'
 
-import { TelegramBot } from 'node-telegram-bot-api'
+import TelegramBot from 'node-telegram-bot-api'
 
 console.log(TelegramBot)
 
