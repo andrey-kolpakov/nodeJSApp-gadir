@@ -80,6 +80,7 @@ const handler = async (event, context) => {
 
         const currentContact = await client.contacts.getById(lead['_embedded'].contacts[0].id)
         console.log(currentContact['custom_fields_values'][0].values[0].value)
+        console.log(currentContact.name)
 
         // Получаем массив ключей объекта lead
         const leadKeys = Object.keys(lead)
