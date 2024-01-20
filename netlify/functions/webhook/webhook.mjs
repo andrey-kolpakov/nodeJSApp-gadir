@@ -79,7 +79,7 @@ const handler = async (event, context) => {
         const lead = await client.leads.getById(info['leads[status][0][id]'])
         // Получаем массив ключей объекта lead
         const leadKeys = Object.keys(lead)
-        console.log(leadKeys['name'])
+        console.log(lead['name'])
 
         // Выводим массив ключей в консоль
         // for (const key of leadKeys) {
