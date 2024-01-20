@@ -76,10 +76,10 @@ const handler = async (event, context) => {
 
         const webhookUrl = 'https://welcome-shark-wondrous.ngrok-free.app/webhook'
 
-        const textMessage = `Уважаемый ${newObj.name}, привет и как дела?`
+        const textMessage = `${newObj.name}, привет! Это Гадир. Мы с тобой говорили вот по поводу курса по ювелирному делу. Отправляю тебе еще материалы. Если что пиши!`
         const textLink = `https://wa.me/${newObj.phone}?text=${encodeURIComponent(textMessage)}`
 
-        const textMessageForGadir = `Вы только что поговорили с <b>${newObj.name}</b>, теперь надо отправить сообщение в ватсап! \n <b>Номер:</b> ${newObj.phone} \n\n Перейдите по ссылке, чтобы отправить сообщение: <a href="${textLink}">ссылка</a>`
+        const textMessageForGadir = `Вы только что поговорили с <b>${newObj.name}</b>, теперь надо отправить сообщение в ватсап! \n<b>Номер:</b> ${newObj.phone} \n\n Перейдите по ссылке, чтобы отправить сообщение: <a href="${textLink}">ссылка</a>`
 
         newObj.textLink = textLink
 
