@@ -80,16 +80,14 @@ const handler = async (event, context) => {
     
         // массив объектов Lead на текущей странице
         const contacts = pagination.getData()
-       
-        const nextPagination = await pagination.next();
-        console.log('123123', nextPagination)
+               const nextPagination = await pagination.next();
     
         // Создаем объект с данными, который мы хотим записать в файл
         const dataToWrite = {
             contacts: contacts.map((contact) => cleanCircularReferences(contact)),
         }
     
-        console.log(typeof contacts)
+        console.log(dataToWrite)
         
         await axios.post(webhookUrl, dataToWrite)
             .then((response) => {
