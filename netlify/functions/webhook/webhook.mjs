@@ -84,11 +84,13 @@ const handler = async (event, context) => {
         const chatID = '-1001992000184'
         const botToken = '6391665621:AAFI8eS-466kwW1142OdQKthJ-_hLHOLyxM'
         const botUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatID}&parse_mode=html&text=${textMessage}`
-    
-        await axios.post(botUrl, newObj.name).then((response) => {
-            console.log('123123')
-            console.log(response)
-        })
+
+        // await Promise.all(
+        //     axios.post(botUrl, newObj.name).then((response) => {
+        //         console.log('123123')
+        //         console.log(response)
+        //     })
+        // )
 
         await axios
             .post(webhookUrl, newObj)
@@ -97,6 +99,12 @@ const handler = async (event, context) => {
             })
             .catch((error) => {
                 console.error('Ошибка отправки вебхука:', error.message)
+            })
+            .then(() => {
+                axios.post(botUrl, newObj.name).then((response) => {
+                    console.log('123123')
+                    console.log(response)
+                })
             })
 
         return {
