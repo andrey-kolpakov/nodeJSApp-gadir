@@ -5,9 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "echo 'Раз, два, три'",
-    "testSecond": "echo 'Второй тест'",
-    "check": "node script-new.js"
+    "addToken": "./netlify/functions/responseToken/responseToke.mjs"
   },
   "keywords": [],
   "author": "",
