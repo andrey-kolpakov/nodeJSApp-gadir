@@ -8,6 +8,8 @@ import { writeFile } from 'fs/promises'
 
 import { Client as ClientFtp } from 'basic-ftp';
 
+import fs from 'fs';
+
 const handler = async (event, context) => {
     // Теперь вы можете использовать переменную Token
     const ClientFtpHandler = new ClientFtp();
