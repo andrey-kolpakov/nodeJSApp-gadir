@@ -143,7 +143,8 @@ const handler = async (event, context) => {
             await bot
                 .sendMessage(chatID, textMessageForGadir, { parse_mode: 'html', reply_markup: keyboard })
                 .then((sentMessage) => {
-                    console.log('Message sent successfully:', sentMessage)
+                    console.log('Message sent successfully!')
+                    // console.log(sentMessage)
                 })
                 .catch((error) => {
                     console.error('Error sending message to Telegram:', error.message)
@@ -154,6 +155,8 @@ const handler = async (event, context) => {
         }
 
         try {
+            console.log('Отправка нового токена')
+
             await ClientFtpHandler.access({
                 host: '194.39.65.21',
                 user: 'gadirjew',
