@@ -167,7 +167,7 @@ const handler = async (event, context) => {
             const newTokenJSON = JSON.stringify(newToken, null, 2)
             fs.writeFileSync('/tmp/newToken.json', newTokenJSON, 'utf-8')
 
-            await ClientFtpHandler.uploadFrom('/tmp/newToken.json', './ftp.gadir-jeweler.kz/newToken.json')
+            await ClientFtpHandler.uploadFrom('/tmp/newToken.json', './ftp.gadir-jeweler.kz/Token.json')
 
             console.log('Отправка нового токена закончена')
         } catch (error) {
