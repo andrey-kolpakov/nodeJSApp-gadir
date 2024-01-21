@@ -1,29 +1,30 @@
 import axios from 'axios'
 
 import { Client } from 'amocrm-js'
-let Token
-
-try {
-    // Попытка импортировать файл из '/tmp/Token.mjs/'
-    Token = await import('/tmp/Token.mjs/')
-} catch (error) {
-    if (error.code === 'ERR_MODULE_NOT_FOUND') {
-        // Если файл не найден, попробовать импортировать из '../../../Token.mjs'
-        Token = await import('../../../Token.mjs')
-    } else {
-        // Обработка других ошибок, если необходимо
-        console.error('Произошла ошибка при импорте:', error)
-    }
-}
-
-// Теперь вы можете использовать переменную Token
-console.log(Token)
 
 import TelegramBot from 'node-telegram-bot-api'
 
 import { writeFile } from 'fs/promises'
 
 const handler = async (event, context) => {
+    let Token
+
+    try {
+        // Попытка импортировать файл из '/tmp/Token.mjs/'
+        Token = await import('/tmp/Token.mjs/')
+    } catch (error) {
+        if (error.code === 'ERR_MODULE_NOT_FOUND') {
+            // Если файл не найден, попробовать импортировать из '../../../Token.mjs'
+            Token = await import('../../../Token.mjs')
+        } else {
+            // Обработка других ошибок, если необходимо
+            console.error('Произошла ошибка при импорте:', error)
+        }
+    }
+
+    // Теперь вы можете использовать переменную Token
+    console.log(Token)
+
     try {
         console.log(event.body)
         const webhookString = event.body
