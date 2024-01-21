@@ -6,24 +6,37 @@ import TelegramBot from 'node-telegram-bot-api'
 
 import { writeFile } from 'fs/promises'
 
-let Token
-
-try {
-    // Попытка импортировать файл из '/tmp/Token.mjs/'
-    Token = import('/tmp/Token.mjs/')
-} catch (error) {
-    if (error.code === 'ERR_MODULE_NOT_FOUND') {
-        // Если файл не найден, попробовать импортировать из '../../../Token.mjs'
-        Token = import('../../../Token.mjs')
-    } else {
-        // Обработка других ошибок, если необходимо
-        console.error('Произошла ошибка при импорте:', error)
-    }
-}
+import { Client as ClientFtp } from 'basic-ftp';
 
 const handler = async (event, context) => {
     // Теперь вы можете использовать переменную Token
-    console.log(Token)
+    const ClientFtpHandler = new ClientFtp();
+    let oldToken
+
+    try {
+        // Подключение к FTP-серверу
+        await ClientFtpHandler.access({
+            host: '194.39.65.21',
+            user: 'gadirjew',
+            password: 'fv7ib1Usea',
+            secure: false, // Используйте true, если FTPS
+        })
+
+        
+        const remoteFilePath = './ftp.gadir-jeweler.kz/Token.mjs';
+        const localFilePath = '/tmp/Token.mjs';
+
+        await ClientFtpHandler.downloadTo(localFilePath, remoteFilePath);
+        
+        // Чтение содержимого скачанного файла
+        oldToken = fs.readFileSync(localFilePath, 'utf-8');
+               
+    } catch (error) {
+        console.error('Произошла ошибка при подключении к FTP:', error);
+    } finally {
+        // Закрытие соединения
+        await ClientFtpHandler.close();
+    }
 
     try {
         console.log(event.body)
@@ -74,7 +87,7 @@ const handler = async (event, context) => {
             },
         })
 
-        client.token.setValue(Token)
+        client.token.setValue(oldToken)
 
         const auth = await client.connection.connect()
         const newToken = client.token.getValue()
