@@ -32,12 +32,12 @@ const handler = async (event, context) => {
 
         // Чтение содержимого скачанного файла и преобразование в объект
         const fileContent = fs.readFileSync(localFilePath, 'utf-8');
-        console.log('Содержимое файла перед JSON.parse:', fileContent);
+        // console.log('Содержимое файла перед JSON.parse:', fileContent);
 
         oldToken = JSON.parse(fileContent);
     
         console.log(oldToken);
-        console.log('Файл прочитан и преобразован в объект!');
+        console.log('Файл со старым токеном прочитан и преобразован в объект!');
     } catch (error) {
         console.error('Произошла ошибка при подключении к FTP:', error);
     } finally {
@@ -95,22 +95,14 @@ const handler = async (event, context) => {
             },
         })
 
-        console.log(oldToken)
+        console.log('line 99', oldToken)
         client.token.setValue(oldToken)
 
         const auth = await client.connection.connect()
         const newToken = client.token.getValue()
-
-        // try {
-        //     const filePath = '/tmp/Token.mjs'
-        //     await writeFile(filePath, `export const Token = ${JSON.stringify(newToken, null, 2)};`)
-
-        //     console.log('Файл успешно перезаписан.')
-        // } catch (error) {
-        //     console.error('Произошла ошибка при перезаписи файла:', error)
-        // }
-
         const lead = await client.leads.getById(info['leads[status][0][id]'], { with: ['contacts'] })
+
+        
 
         const currentContact = await client.contacts.getById(lead['_embedded'].contacts[0].id)
         console.log('ID Сделки', info['leads[status][0][id]'])
