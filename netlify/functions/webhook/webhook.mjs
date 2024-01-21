@@ -43,7 +43,7 @@ const handler = async (event, context) => {
     }
 
     try {
-        console.log(event.body)
+        // console.log(event.body)
         const webhookString = event.body
 
         // Декодирование строки
@@ -91,6 +91,7 @@ const handler = async (event, context) => {
             },
         })
 
+        console.log(oldToken)
         client.token.setValue(oldToken)
 
         const auth = await client.connection.connect()
