@@ -106,7 +106,7 @@ const handler = async (event, context) => {
         fs.writeFileSync('/tmp/newToken.json', newTokenJSON, 'utf-8');
 
 
-        await ClientFtpHandler.uploadFrom('/tmp/newToken.json', '/tmp/NewToken.json');
+        // await ClientFtpHandler.uploadFrom('/tmp/newToken.json', '/tmp/NewToken.json');
 
 
         const currentContact = await client.contacts.getById(lead['_embedded'].contacts[0].id)
