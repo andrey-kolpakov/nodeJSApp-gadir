@@ -26,14 +26,16 @@ const handler = async (event, context) => {
 
         
         const remoteFilePath = './ftp.gadir-jeweler.kz/Token.mjs';
-        const localFilePath = '/tmp/Token.mjs';
+        const localFilePath = '/tmp/Token.json';
 
         await ClientFtpHandler.downloadTo(localFilePath, remoteFilePath);
-        
-        // Чтение содержимого скачанного файла
-        oldToken = fs.readFileSync(localFilePath, 'utf-8');
-        console.log(oldToken)
-        console.log('Файл прочитан!')
+
+        // Чтение содержимого скачанного файла и преобразование в объект
+        const fileContent = fs.readFileSync(localFilePath, 'utf-8');
+        oldToken = JSON.parse(fileContent);
+    
+        console.log(oldToken);
+        console.log('Файл прочитан и преобразован в объект!');
     } catch (error) {
         console.error('Произошла ошибка при подключении к FTP:', error);
     } finally {
