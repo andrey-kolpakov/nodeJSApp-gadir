@@ -101,10 +101,10 @@ const handler = async (event, context) => {
         const newToken = client.token.getValue()
         const lead = await client.leads.getById(info['leads[status][0][id]'], { with: ['contacts'] })
 
-        // const newTokenJSON = JSON.stringify(newToken, null, 2);
-        // fs.writeFileSync('/tmp/newToken.json', newTokenJSON, 'utf-8');
+        const newTokenJSON = JSON.stringify(newToken, null, 2);
+        fs.writeFileSync('/tmp/newToken.json', newTokenJSON, 'utf-8');
 
-        // await ClientFtpHandler.uploadFrom('/tmp/newToken.json', '/tmp/NewToken.json');
+        await ClientFtpHandler.uploadFrom('/tmp/newToken.json', '/tmp/NewToken.json');
 
         const currentContact = await client.contacts.getById(lead['_embedded'].contacts[0].id)
         console.log('ID Сделки', info['leads[status][0][id]'])
