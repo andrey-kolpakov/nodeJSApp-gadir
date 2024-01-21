@@ -5,6 +5,8 @@ import { Token } from '../../../Token.mjs'
 
 import TelegramBot from 'node-telegram-bot-api'
 
+import { writeFile } from 'fs/promises'
+
 const handler = async (event, context) => {
     try {
         console.log(event.body)
@@ -60,6 +62,15 @@ const handler = async (event, context) => {
         const auth = await client.connection.connect()
         const newToken = client.token.getValue()
 
+        try {
+            const filePath = './././Token.mjs'
+            await writeFile(filePath, `export const Token = ${JSON.stringify(newToken, null, 2)};`)
+
+            console.log('Файл успешно перезаписан.')
+        } catch (error) {
+            console.error('Произошла ошибка при перезаписи файла:', error)
+        }
+
         const lead = await client.leads.getById(info['leads[status][0][id]'], { with: ['contacts'] })
 
         const currentContact = await client.contacts.getById(lead['_embedded'].contacts[0].id)
@@ -96,10 +107,10 @@ const handler = async (event, context) => {
                     },
                 ],
             ],
-        };
+        }
 
         console.log(bot)
-        bot.sendMessage(chatID, textMessageForGadir, {parse_mode: 'html', reply_markup: keyboard,})
+        bot.sendMessage(chatID, textMessageForGadir, { parse_mode: 'html', reply_markup: keyboard })
             .then((sentMessage) => {
                 console.log('Message sent successfully:', sentMessage)
             })
