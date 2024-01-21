@@ -25,7 +25,7 @@ const handler = async (event, context) => {
         })
 
         
-        const remoteFilePath = './ftp.gadir-jeweler.kz/Token.mjs';
+        const remoteFilePath = './ftp.gadir-jeweler.kz/Token.json';
         const localFilePath = '/tmp/Token.json';
 
         await ClientFtpHandler.downloadTo(localFilePath, remoteFilePath);
