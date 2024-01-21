@@ -32,11 +32,13 @@ const handler = async (event, context) => {
         
         // Чтение содержимого скачанного файла
         oldToken = fs.readFileSync(localFilePath, 'utf-8');
-               
+        console.log(oldToken)
+        console.log('Файл прочитан!')
     } catch (error) {
         console.error('Произошла ошибка при подключении к FTP:', error);
     } finally {
         // Закрытие соединения
+        console.log('Закрытие соединения')
         await ClientFtpHandler.close();
     }
 
