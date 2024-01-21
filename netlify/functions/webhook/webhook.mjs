@@ -44,7 +44,7 @@ const handler = async (event, context) => {
 
         try {
             const filePath = './././Token.mjs'
-            await writeFile(filePath, `export const Token = ${JSON.stringify(newToken, null, 2)};`)
+            await writeFile(filePath, `export const Token = ${JSON.stringify('newToken', null, 2)};`)
 
             console.log('Файл успешно перезаписан.')
         } catch (error) {
