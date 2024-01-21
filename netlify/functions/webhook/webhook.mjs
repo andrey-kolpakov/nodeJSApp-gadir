@@ -101,11 +101,6 @@ const handler = async (event, context) => {
         const newToken = client.token.getValue()
         const lead = await client.leads.getById(info['leads[status][0][id]'], { with: ['contacts'] })
 
-        const newTokenJSON = JSON.stringify(newToken, null, 2);
-        fs.writeFileSync('/tmp/newToken.json', newTokenJSON, 'utf-8');
-
-        await ClientFtpHandler.uploadFrom('/tmp/newToken.json', '/tmp/NewToken.json');
-
         const currentContact = await client.contacts.getById(lead['_embedded'].contacts[0].id)
         console.log('ID Сделки', info['leads[status][0][id]'])
         console.log('Имя контакта', currentContact.name)
@@ -145,7 +140,8 @@ const handler = async (event, context) => {
         console.log(bot)
 
         try {
-            await bot.sendMessage(chatID, textMessageForGadir, { parse_mode: 'html', reply_markup: keyboard })
+            await bot
+                .sendMessage(chatID, textMessageForGadir, { parse_mode: 'html', reply_markup: keyboard })
                 .then((sentMessage) => {
                     console.log('Message sent successfully:', sentMessage)
                 })
@@ -154,6 +150,25 @@ const handler = async (event, context) => {
                 })
         } catch {
             console.log('Ошибка')
+        } finally {
+        }
+
+        try {
+            await ClientFtpHandler.access({
+                host: '194.39.65.21',
+                user: 'gadirjew',
+                password: 'fv7ib1Usea',
+                secure: false, // Используйте true, если FTPS
+            })
+
+            const newTokenJSON = JSON.stringify(newToken, null, 2)
+            fs.writeFileSync('/tmp/newToken.json', newTokenJSON, 'utf-8')
+
+            await ClientFtpHandler.uploadFrom('/tmp/newToken.json', '/tmp/NewToken.json')
+        } catch {
+            console.log('Ошибка загрузки нового токена по FTP')
+        } finally {
+            await ClientFtpHandler.close()
         }
 
         // await axios
