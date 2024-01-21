@@ -6,13 +6,13 @@ import TelegramBot from 'node-telegram-bot-api'
 
 import { writeFile } from 'fs/promises'
 
-import { Client as ClientFtp } from 'basic-ftp';
+import { Client as ClientFtp } from 'basic-ftp'
 
-import fs from 'fs';
+import fs from 'fs'
 
 const handler = async (event, context) => {
     // Теперь вы можете использовать переменную Token
-    const ClientFtpHandler = new ClientFtp();
+    const ClientFtpHandler = new ClientFtp()
     let oldToken
 
     try {
@@ -24,26 +24,25 @@ const handler = async (event, context) => {
             secure: false, // Используйте true, если FTPS
         })
 
-        
-        const remoteFilePath = './ftp.gadir-jeweler.kz/Token.json';
-        const localFilePath = '/tmp/Token.json';
+        const remoteFilePath = './ftp.gadir-jeweler.kz/Token.json'
+        const localFilePath = '/tmp/Token.json'
 
-        await ClientFtpHandler.downloadTo(localFilePath, remoteFilePath);
+        await ClientFtpHandler.downloadTo(localFilePath, remoteFilePath)
 
         // Чтение содержимого скачанного файла и преобразование в объект
-        const fileContent = fs.readFileSync(localFilePath, 'utf-8');
+        const fileContent = fs.readFileSync(localFilePath, 'utf-8')
         // console.log('Содержимое файла перед JSON.parse:', fileContent);
 
-        oldToken = JSON.parse(fileContent);
-    
-        console.log(oldToken);
-        console.log('Файл со старым токеном прочитан и преобразован в объект!');
+        oldToken = JSON.parse(fileContent)
+
+        console.log(oldToken)
+        console.log('Файл со старым токеном прочитан и преобразован в объект!')
     } catch (error) {
-        console.error('Произошла ошибка при подключении к FTP:', error);
+        console.error('Произошла ошибка при подключении к FTP:', error)
     } finally {
         // Закрытие соединения
         console.log('Закрытие соединения')
-        await ClientFtpHandler.close();
+        await ClientFtpHandler.close()
     }
 
     try {
@@ -105,9 +104,7 @@ const handler = async (event, context) => {
         // const newTokenJSON = JSON.stringify(newToken, null, 2);
         // fs.writeFileSync('/tmp/newToken.json', newTokenJSON, 'utf-8');
 
-
         // await ClientFtpHandler.uploadFrom('/tmp/newToken.json', '/tmp/NewToken.json');
-
 
         const currentContact = await client.contacts.getById(lead['_embedded'].contacts[0].id)
         console.log('ID Сделки', info['leads[status][0][id]'])
@@ -154,14 +151,14 @@ const handler = async (event, context) => {
                 console.error('Error sending message to Telegram:', error.message)
             })
 
-        await axios
-            .post(webhookUrl, newObj)
-            .then((response) => {
-                console.log('Успешно отправлено после обработки:', response.data)
-            })
-            .catch((error) => {
-                console.error('Ошибка отправки вебхука:', error.message)
-            })
+        // await axios
+        //     .post(webhookUrl, newObj)
+        //     .then((response) => {
+        //         console.log('Успешно отправлено после обработки:', response.data)
+        //     })
+        //     .catch((error) => {
+        //         console.error('Ошибка отправки вебхука:', error.message)
+        //     })
 
         return {
             statusCode: 200,
