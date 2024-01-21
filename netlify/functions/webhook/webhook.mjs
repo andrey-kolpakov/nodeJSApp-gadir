@@ -6,22 +6,22 @@ import TelegramBot from 'node-telegram-bot-api'
 
 import { writeFile } from 'fs/promises'
 
-const handler = async (event, context) => {
-    let Token
+let Token
 
-    try {
-        // Попытка импортировать файл из '/tmp/Token.mjs/'
-        Token = await import('/tmp/Token.mjs/')
-    } catch (error) {
-        if (error.code === 'ERR_MODULE_NOT_FOUND') {
-            // Если файл не найден, попробовать импортировать из '../../../Token.mjs'
-            Token = await import('../../../Token.mjs')
-        } else {
-            // Обработка других ошибок, если необходимо
-            console.error('Произошла ошибка при импорте:', error)
-        }
+try {
+    // Попытка импортировать файл из '/tmp/Token.mjs/'
+    Token = import('/tmp/Token.mjs/')
+} catch (error) {
+    if (error.code === 'ERR_MODULE_NOT_FOUND') {
+        // Если файл не найден, попробовать импортировать из '../../../Token.mjs'
+        Token = import('../../../Token.mjs')
+    } else {
+        // Обработка других ошибок, если необходимо
+        console.error('Произошла ошибка при импорте:', error)
     }
+}
 
+const handler = async (event, context) => {
     // Теперь вы можете использовать переменную Token
     console.log(Token)
 
