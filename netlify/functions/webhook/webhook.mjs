@@ -94,14 +94,14 @@ const handler = async (event, context) => {
         const auth = await client.connection.connect()
         const newToken = client.token.getValue()
 
-        try {
-            const filePath = '/tmp/Token.mjs'
-            await writeFile(filePath, `export const Token = ${JSON.stringify(newToken, null, 2)};`)
+        // try {
+        //     const filePath = '/tmp/Token.mjs'
+        //     await writeFile(filePath, `export const Token = ${JSON.stringify(newToken, null, 2)};`)
 
-            console.log('Файл успешно перезаписан.')
-        } catch (error) {
-            console.error('Произошла ошибка при перезаписи файла:', error)
-        }
+        //     console.log('Файл успешно перезаписан.')
+        // } catch (error) {
+        //     console.error('Произошла ошибка при перезаписи файла:', error)
+        // }
 
         const lead = await client.leads.getById(info['leads[status][0][id]'], { with: ['contacts'] })
 
