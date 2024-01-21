@@ -143,13 +143,18 @@ const handler = async (event, context) => {
         }
 
         console.log(bot)
-        bot.sendMessage(chatID, textMessageForGadir, { parse_mode: 'html', reply_markup: keyboard })
-            .then((sentMessage) => {
-                console.log('Message sent successfully:', sentMessage)
-            })
-            .catch((error) => {
-                console.error('Error sending message to Telegram:', error.message)
-            })
+
+        try {
+            await bot.sendMessage(chatID, textMessageForGadir, { parse_mode: 'html', reply_markup: keyboard })
+                .then((sentMessage) => {
+                    console.log('Message sent successfully:', sentMessage)
+                })
+                .catch((error) => {
+                    console.error('Error sending message to Telegram:', error.message)
+                })
+        } catch {
+            console.log('Ошибка')
+        }
 
         // await axios
         //     .post(webhookUrl, newObj)
