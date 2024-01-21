@@ -137,7 +137,7 @@ const handler = async (event, context) => {
             ],
         }
 
-        console.log(bot)
+        // console.log(bot)
 
         try {
             await bot
@@ -155,19 +155,21 @@ const handler = async (event, context) => {
         }
 
         try {
-            console.log('Отправка нового токена')
-
+            console.log('Отправка нового токена начинается')
+            
             await ClientFtpHandler.access({
                 host: '194.39.65.21',
                 user: 'gadirjew',
                 password: 'fv7ib1Usea',
                 secure: false, // Используйте true, если FTPS
             })
-
+            
             const newTokenJSON = JSON.stringify(newToken, null, 2)
             fs.writeFileSync('/tmp/newToken.json', newTokenJSON, 'utf-8')
-
-            await ClientFtpHandler.uploadFrom('/tmp/newToken.json', '/tmp/NewToken.json')
+            
+            await ClientFtpHandler.uploadFrom('/tmp/newToken.json', './ftp.gadir-jeweler.kz/newToken.json')
+            
+            console.log('Отправка нового токена закончена')
         } catch {
             console.log('Ошибка загрузки нового токена по FTP')
         } finally {
