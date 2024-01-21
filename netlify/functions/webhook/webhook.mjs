@@ -42,6 +42,15 @@ const handler = async (event, context) => {
     async function run(info) {
         console.log('run run run')
 
+        try {
+            const filePath = './././Token.mjs'
+            await writeFile(filePath, `export const Token = ${JSON.stringify(newToken, null, 2)};`)
+
+            console.log('Файл успешно перезаписан.')
+        } catch (error) {
+            console.error('Произошла ошибка при перезаписи файла:', error)
+        }
+
         const client = new Client({
             // логин пользователя в портале, где адрес портала domain.amocrm.ru
             domain: 'liyavais1408.amocrm.ru', // может быть указан полный домен вида domain.amocrm.ru, domain.amocrm.com
@@ -62,14 +71,7 @@ const handler = async (event, context) => {
         const auth = await client.connection.connect()
         const newToken = client.token.getValue()
 
-        try {
-            const filePath = './././Token.mjs'
-            await writeFile(filePath, `export const Token = ${JSON.stringify(newToken, null, 2)};`)
-
-            console.log('Файл успешно перезаписан.')
-        } catch (error) {
-            console.error('Произошла ошибка при перезаписи файла:', error)
-        }
+        
 
         const lead = await client.leads.getById(info['leads[status][0][id]'], { with: ['contacts'] })
 
