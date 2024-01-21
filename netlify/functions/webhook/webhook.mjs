@@ -32,6 +32,8 @@ const handler = async (event, context) => {
 
         // Чтение содержимого скачанного файла и преобразование в объект
         const fileContent = fs.readFileSync(localFilePath, 'utf-8');
+        console.log('Содержимое файла перед JSON.parse:', fileContent);
+
         oldToken = JSON.parse(fileContent);
     
         console.log(oldToken);
